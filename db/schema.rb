@@ -12,11 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2021_04_02_055828) do
 
-  create_table "lines", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "lines", charset: "utf8", force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "services", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "services", charset: "utf8", force: :cascade do |t|
     t.integer "transport_id", null: false, unsigned: true
     t.integer "start_hour", null: false, unsigned: true
     t.integer "start_minute", null: false, unsigned: true
@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(version: 2021_04_02_055828) do
     t.boolean "is_with_laggage_space", default: false
   end
 
-  create_table "stations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "stations", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
   end
 
-  create_table "transfers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "transfers", charset: "utf8", force: :cascade do |t|
     t.integer "station_id", null: false
     t.integer "line_1_id", null: false
     t.integer "line_2_id", null: false
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_055828) do
     t.integer "default_minute", null: false
   end
 
-  create_table "transports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "transports", charset: "utf8", force: :cascade do |t|
     t.integer "start_station_id"
     t.integer "reach_station_id"
     t.integer "line_id"
