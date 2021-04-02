@@ -12,10 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2021_04_02_055828) do
 
-  create_table "lines", charset: "utf8", force: :cascade do |t|
-    t.string "name"
-  end
-
   create_table "services", charset: "utf8", force: :cascade do |t|
     t.integer "transport_id", null: false, unsigned: true
     t.integer "start_hour", null: false, unsigned: true
@@ -27,6 +23,10 @@ ActiveRecord::Schema.define(version: 2021_04_02_055828) do
 
   create_table "stations", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
+  end
+
+  create_table "train_lines", charset: "utf8", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "transfers", charset: "utf8", force: :cascade do |t|
