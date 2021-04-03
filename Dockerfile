@@ -1,18 +1,21 @@
 FROM ruby:2.7.2
-ENV LANG C.UTF-8
 
-RUN apt update -qq && apt install -y mariadb-client
+RUN apt-get update -qq && \
+    apt-get install -y build-essential \
+                       libpq-dev \
+                       nodejs
 
-WORKDIR /app_name
-COPY Gemfile /app_name/Gemfile
-COPY Gemfile.lock /app_name/Gemfile.lock
+RUN mkdir /myapp
+
+WORKDIR /myapp
+
+ADD Gemfile /myapp/Gemfile
+ADD Gemfile.lock /myapp/Gemfile.lock
+
+RUN gem install bundler
 RUN bundle install
-RUN bundle update
-COPY . /app_name
 
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
+ADD . /myapp
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+RUN mkdir -p tmp/sockets
+RUN mkdir -p tmp/pids

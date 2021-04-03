@@ -1,12 +1,24 @@
 version: '3'
 services:
   web:
-    build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - .:/app_name
+    build:
+      context: containers/nginx
     ports:
-      - "3000:3000"
+      - 80:80
+    depends_on:
+      - app
+    volumes:
+      - tmp-data:/myapp/tmp
+      - public-data:/myapp/public
+  app:
+    build: .
+    command: bundle exec puma -C config/puma.rb
+    volumes:
+      - .:/webapp
+      - tmp-data:/myapp/tmp
+      - public-data:/myapp/public
+    # ports:
+    #   - "3000:3000"
     depends_on:
       - db
     stdin_open: true
@@ -24,3 +36,5 @@ services:
 volumes:
   mysql_vol:
     driver: local
+  tmp-data:
+  public-data:
