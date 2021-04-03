@@ -18,4 +18,3 @@ RUN bundle install
 ADD . /myapp
 
 RUN mkdir -p tmp/sockets
-RUN mkdir -p tmp/pids

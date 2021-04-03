@@ -9,16 +9,12 @@ services:
       - app
     volumes:
       - tmp-data:/myapp/tmp
-      - public-data:/myapp/public
   app:
     build: .
     command: bundle exec puma -C config/puma.rb
     volumes:
       - .:/webapp
       - tmp-data:/myapp/tmp
-      - public-data:/myapp/public
-    # ports:
-    #   - "3000:3000"
     depends_on:
       - db
     stdin_open: true
@@ -37,4 +33,3 @@ volumes:
   mysql_vol:
     driver: local
   tmp-data:
-  public-data:
