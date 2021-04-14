@@ -13,7 +13,7 @@ services:
     build: .
     command: bundle exec puma -C config/puma.rb
     volumes:
-      - .:/webapp
+      - .:/myapp
       - tmp-data:/myapp/tmp
     depends_on:
       - db
