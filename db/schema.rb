@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_02_055828) do
+ActiveRecord::Schema.define(version: 2021_04_14_014841) do
 
   create_table "services", charset: "utf8", force: :cascade do |t|
     t.integer "transport_id", null: false, unsigned: true
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_055828) do
     t.integer "reach_hour", null: false, unsigned: true
     t.integer "reach_minute", null: false, unsigned: true
     t.boolean "is_with_laggage_space", default: false
+    t.string "platform"
   end
 
   create_table "stations", charset: "utf8", force: :cascade do |t|
