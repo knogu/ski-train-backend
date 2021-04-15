@@ -13,10 +13,8 @@
 ActiveRecord::Schema.define(version: 2021_04_15_055500) do
 
   create_table "service_dates", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "service_id"
-    t.date "date", comment: "serviceが運行している日付"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "service_id", null: false
+    t.date "date", null: false, comment: "serviceが運行している日付"
   end
 
   create_table "services", charset: "utf8", force: :cascade do |t|
@@ -26,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_04_15_055500) do
     t.integer "reach_hour", null: false, unsigned: true
     t.integer "reach_minute", null: false, unsigned: true
     t.boolean "is_with_laggage_space", default: false
-    t.string "platform"
+    t.string "platform", comment: "出発ホーム(番線)"
   end
 
   create_table "stations", charset: "utf8", force: :cascade do |t|
@@ -35,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_04_15_055500) do
   end
 
   create_table "train_lines", charset: "utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.index ["name"], name: "index_train_lines_on_name", unique: true
   end
 
@@ -49,9 +47,9 @@ ActiveRecord::Schema.define(version: 2021_04_15_055500) do
   end
 
   create_table "transports", charset: "utf8", force: :cascade do |t|
-    t.integer "start_station_id"
-    t.integer "reach_station_id"
-    t.integer "train_line_id"
+    t.integer "start_station_id", null: false
+    t.integer "reach_station_id", null: false
+    t.integer "train_line_id", null: false
     t.index ["start_station_id", "reach_station_id", "train_line_id"], name: "index_for_uniqueness", unique: true
   end
 
