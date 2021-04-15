@@ -1,5 +1,5 @@
 class Service < ApplicationRecord
-  belongs_to :transfer
+  belongs_to :transport
   has_many :sercvice_date
 
   def json
