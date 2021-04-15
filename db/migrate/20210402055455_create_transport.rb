@@ -3,7 +3,7 @@ class CreateTransport < ActiveRecord::Migration[6.0]
     create_table "transports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
       t.integer :start_station_id
       t.integer :reach_station_id
-      t.integer :line_id
+      t.integer :train_line_id
     end
   end
 end

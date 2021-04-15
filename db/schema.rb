@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 2021_04_15_055500) do
 
   create_table "transfers", charset: "utf8", force: :cascade do |t|
     t.integer "station_id", null: false
-    t.integer "line_1_id", null: false
-    t.integer "line_2_id", null: false
+    t.integer "train_line_1_id", null: false
+    t.integer "train_line_2_id", null: false
     t.integer "default_hour", default: 0
     t.integer "default_minute", null: false
   end
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2021_04_15_055500) do
   create_table "transports", charset: "utf8", force: :cascade do |t|
     t.integer "start_station_id"
     t.integer "reach_station_id"
-    t.integer "line_id"
+    t.integer "train_line_id"
   end
 
 end
