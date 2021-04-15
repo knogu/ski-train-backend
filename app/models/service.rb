@@ -1,5 +1,6 @@
 class Service < ApplicationRecord
   belongs_to :transfer
+  has_many :sercvice_date
 
   def json
     {
