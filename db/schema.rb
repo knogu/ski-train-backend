@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_15_055500) do
+ActiveRecord::Schema.define(version: 2021_04_15_102437) do
 
   create_table "service_dates", charset: "utf8mb4", force: :cascade do |t|
     t.integer "service_id", null: false
@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 2021_04_15_055500) do
     t.integer "reach_minute", null: false, unsigned: true
     t.boolean "is_with_laggage_space", default: false
     t.string "platform", comment: "出発ホーム(番線)"
+    t.boolean "is_depending_on_date", default: false, comment: "運行予定かどうかを、曜日ではなく日にちで判定するフラグ"
+    t.boolean "is_in_weekdays", comment: "平日運行予定フラグ"
+    t.boolean "is_in_holidays", comment: "土休日運行予定フラグ"
   end
 
   create_table "stations", charset: "utf8", force: :cascade do |t|
