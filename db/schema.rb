@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_014841) do
+ActiveRecord::Schema.define(version: 2021_04_15_055500) do
+
+  create_table "service_dates", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "service_id"
+    t.date "date", comment: "serviceが運行している日付"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "services", charset: "utf8", force: :cascade do |t|
     t.integer "transport_id", null: false, unsigned: true
