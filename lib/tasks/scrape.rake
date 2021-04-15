@@ -70,16 +70,14 @@ def seed_services(train_line_id, start_station_array, reach_station_array, url_f
     reach_station_data_array = retrieve_reach_station_data_array(service_page, reach_station_array)
     
     start_station_data_array.each do |start_station_data|
+      start_station_id = Station.find_or_create_by!(name: start_station_data[:name]).id
       reach_station_data_array.each do |reach_station_data|
-        start_station = Station.find_by(name: start_station_data[:name])
-        reach_station = Station.find_by(name: reach_station_data[:name])
-        transport_id = Transport.find_by(start_station_id: start_station.id, reach_station_id: reach_station.id, train_line_id: train_line_id).id
-        service = Service.new(transport_id: transport_id, start_hour: start_station_data[:start_hour], start_minute: start_station_data[:start_minute], reach_hour: reach_station_data[:reach_hour], reach_minute: reach_station_data[:reach_minute], is_with_laggage_space: laggage_space, platform: start_station_data[:platform], is_depending_on_date: true)
-        service.save!
+        reach_station_id = Station.find_or_create_by!(name: reach_station_data[:name]).id
+        transport_id = Transport.find_or_create_by!(start_station_id: start_station_id, reach_station_id: reach_station_id, train_line_id: train_line_id).id
+        service = Service.create!(transport_id: transport_id, start_hour: start_station_data[:start_hour], start_minute: start_station_data[:start_minute], reach_hour: reach_station_data[:reach_hour], reach_minute: reach_station_data[:reach_minute], is_with_laggage_space: laggage_space, platform: start_station_data[:platform], is_depending_on_date: true)
         p 'created service: ', service
         dates.each do |date|
-          service_date = ServiceDate.new(service_id: service.id, date:date)
-          service_date.save!
+          service_date = ServiceDate.create!(service_id: service.id, date:date)
           p 'created service_date: ', service_date
         end
       end
@@ -94,20 +92,13 @@ stations_nearby_ski_resort = ['越後湯沢', 'ガーラ湯沢']
 namespace :scrape do
   desc '平日、東京から越後湯沢'
   task :weekday_from_Tokyo => :environment do
-    TrainLine.create!(name: '上越新幹線') if !TrainLine.exists?(name: '上越新幹線')
-    train_line_id = TrainLine.find_by(name: '上越新幹線').id
-    stations_in_Tokyo.each do |start_station_name|
-      stations_nearby_ski_resort.each do |reach_station_name|
-        Station.create!(name: start_station_name) if !Station.exists?(name: start_station_name)
-        Station.create!(name: reach_station_name) if !Station.exists?(name: reach_station_name)
-        Transport.create!(start_station_id: Station.find_by(name: start_station_name).id, reach_station_id: Station.find_by(name: reach_station_name).id, train_line_id: train_line_id) if !Transport.exists?(start_station_id: Station.find_by(name: start_station_name).id, reach_station_id: Station.find_by(name: reach_station_name).id, train_line_id: train_line_id)
-      end
-    end
+    train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
     seed_services(train_line_id = train_line_id, start_station_array = stations_in_Tokyo, reach_station_name = stations_nearby_ski_resort, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2104/timetable/tt1039/1039050.html')
   end
 
   desc '土休日、東京から越後湯沢'
   task :weekday_from_Tokyo => :environment do
-    seed_services(train_line_id = TrainLine.find_by(name: '上越新幹線').id, start_station_array = stations_in_Tokyo, reach_station_name = stations_nearby_ski_resort, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2104/timetable/tt1039/1039051.html')
+    train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
+    seed_services(train_line_id = train_line_id, start_station_array = stations_in_Tokyo, reach_station_name = stations_nearby_ski_resort, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2104/timetable/tt1039/1039051.html')
   end
 end
