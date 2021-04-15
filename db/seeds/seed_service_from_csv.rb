@@ -49,6 +49,26 @@ else
   exit
 end
 
+p '平日に運行しますか？(y/n)'
+input_in_weekdays = gets.gsub(/[\r\n]/,"")
+if input_in_weekdays == 'y'
+  is_in_weekdays = true
+elsif input_in_weekdays == 'n'
+  is_in_weekdays = false
+else
+  exit
+end
+
+p '土日に運行しますか？(y/n)'
+input_in_holidays = gets.gsub(/[\r\n]/,"")
+if input_in_holidays == 'y'
+  is_in_holidays = true
+elsif input_in_holidays == 'n'
+  is_in_holidays = false
+else
+  exit
+end
+
 # ヘッダーの日本語→ヘッダー内でのインデックス、となるハッシュを作成
 station_name2index = {}
 table[0].each_with_index do |station_name, i|
@@ -76,8 +96,8 @@ end
         next
       end
       transport_id = Transport.find_or_create_by!(start_station_id: start_station_id, reach_station_id: reach_station_id, train_line_id: train_line_id).id
-      service = Service.find_or_create_by!(transport_id: transport_id, start_hour: start_hour, start_minute: start_minute, reach_hour: reach_hour, reach_minute: reach_minute, is_with_laggage_space: has_laggage_space)
-      p service
+      service = Service.find_or_create_by!(transport_id: transport_id, start_hour: start_hour, start_minute: start_minute, reach_hour: reach_hour, reach_minute: reach_minute, is_with_laggage_space: has_laggage_space, is_in_weekdays: is_in_weekdays, is_in_holidays: is_in_holidays)
+      p 'created_service: ', service
     end
   end
 end
