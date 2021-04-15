@@ -74,7 +74,7 @@ def seed_services(train_line_id, start_station_array, reach_station_array, url_f
         start_station = Station.find_by(name: start_station_data[:name])
         reach_station = Station.find_by(name: reach_station_data[:name])
         transport_id = Transport.find_by(start_station_id: start_station.id, reach_station_id: reach_station.id, train_line_id: train_line_id).id
-        service = Service.new(transport_id: transport_id, start_hour: start_station_data[:start_hour], start_minute: start_station_data[:start_minute], reach_hour: reach_station_data[:reach_hour], reach_minute: reach_station_data[:reach_minute], is_with_laggage_space: laggage_space, platform: start_station_data[:platform])
+        service = Service.new(transport_id: transport_id, start_hour: start_station_data[:start_hour], start_minute: start_station_data[:start_minute], reach_hour: reach_station_data[:reach_hour], reach_minute: reach_station_data[:reach_minute], is_with_laggage_space: laggage_space, platform: start_station_data[:platform], is_depending_on_date: true)
         service.save!
         p 'created service: ', service
         dates.each do |date|
