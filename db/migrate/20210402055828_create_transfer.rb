@@ -7,5 +7,6 @@ class CreateTransfer < ActiveRecord::Migration[6.0]
       t.integer :default_hour, default: 0
       t.integer :default_minute, null: false
     end
+    add_index :transfers, [:station_id, :train_line_1_id, :train_line_2_id], unique: true, name: 'index_for_uniqueness'
   end
 end

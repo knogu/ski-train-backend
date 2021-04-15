@@ -31,10 +31,12 @@ ActiveRecord::Schema.define(version: 2021_04_15_055500) do
 
   create_table "stations", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
+    t.index ["name"], name: "index_stations_on_name", unique: true
   end
 
   create_table "train_lines", charset: "utf8", force: :cascade do |t|
     t.string "name"
+    t.index ["name"], name: "index_train_lines_on_name", unique: true
   end
 
   create_table "transfers", charset: "utf8", force: :cascade do |t|
@@ -43,12 +45,14 @@ ActiveRecord::Schema.define(version: 2021_04_15_055500) do
     t.integer "train_line_2_id", null: false
     t.integer "default_hour", default: 0
     t.integer "default_minute", null: false
+    t.index ["station_id", "train_line_1_id", "train_line_2_id"], name: "index_for_uniqueness", unique: true
   end
 
   create_table "transports", charset: "utf8", force: :cascade do |t|
     t.integer "start_station_id"
     t.integer "reach_station_id"
     t.integer "train_line_id"
+    t.index ["start_station_id", "reach_station_id", "train_line_id"], name: "index_for_uniqueness", unique: true
   end
 
 end

@@ -1,5 +1,6 @@
 class Transport < ApplicationRecord
   has_many :services
+  validates :start_station_id, uniqueness: { scope: [:reach_station_id, :train_line_id] }
 
   def json(prev_transport_id = nil)
     if prev_transport_id.present?
