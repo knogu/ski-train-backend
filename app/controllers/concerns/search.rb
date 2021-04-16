@@ -1,30 +1,31 @@
 module Search
   def get_total_json(start_station, ski_resort)
     {
-      "toSki": get_toski_json(start_station),
-      "Back": get_back_json(start_station)
+      "toSki": get_toski_json(start_station, ski_resort),
+      "Back": get_back_json(start_station, ski_resort)
     }
   end
 
-  def get_toski_json(start_station)
+  def get_toski_json(start_station, ski_resort)
+    date = Date.today
     json = []
-    first_transport = Transport.find_by(start_station_id: Station.find_by(name: '海園の街').id, reach_station_id: Station.find_by(name: '東京').id)
-    json.push(first_transport.json)
+    first_transport = Transport.find_by(start_station_id: Station.find_by(name: start_station).id, reach_station_id: Station.find_by(name: '東京').id)
+    json.push(first_transport.json(date))
     second_transport = Transport.find_by(start_station_id: Station.find_by(name: '東京').id, reach_station_id: Station.find_by(name: '越後湯沢').id)
-    json.push(second_transport.json(prev_transport_id = first_transport.id))
-    third_transport = Transport.find_by(start_station_id: Station.find_by(name: '越後湯沢').id, reach_station_id: Station.find_by(name: '神立スノーリゾート').id)
-    json.push(third_transport.json(prev_transport_id = second_transport.id))
+    json.push(second_transport.json(date, prev_transport_id = first_transport.id))
+    third_transport = Transport.find_by(start_station_id: Station.find_by(name: '越後湯沢').id, reach_station_id: Station.find_by(name: ski_resort).id)
+    json.push(third_transport.json(date, prev_transport_id = second_transport.id))
     json
   end
 
-  def get_back_json(start_station)
+  def get_back_json(start_station, ski_resort)
     json = []
-    first_transport = Transport.find_by(start_station_id: Station.find_by(name: '神立スノーリゾート').id, reach_station_id: Station.find_by(name: '越後湯沢').id)
-    json.push(first_transport.json())
+    first_transport = Transport.find_by(start_station_id: Station.find_by(name: ski_resort).id, reach_station_id: Station.find_by(name: '越後湯沢').id)
+    json.push(first_transport.json(date))
     second_transport = Transport.find_by(start_station_id: Station.find_by(name: '越後湯沢').id, reach_station_id: Station.find_by(name: '東京').id)
-    json.push(second_transport.json(prev_transport_id = first_transport.id))
-    third_transport = Transport.find_by(start_station_id: Station.find_by(name: '東京').id, reach_station_id: Station.find_by(name: '海園の街').id)
-    json.push(third_transport.json(prev_transport_id = second_transport.id))
+    json.push(second_transport.json(date, prev_transport_id = first_transport.id))
+    third_transport = Transport.find_by(start_station_id: Station.find_by(name: '東京').id, reach_station_id: Station.find_by(name: start_station).id)
+    json.push(third_transport.json(date, prev_transport_id = second_transport.id))
     json
   end
 end

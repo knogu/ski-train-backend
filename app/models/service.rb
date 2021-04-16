@@ -12,7 +12,7 @@ class Service < ApplicationRecord
     }
   end
 
-  def is_in_service(date)
+  def is_in_service?(date)
     if is_depending_on_date
       ServiceDate.exists?(service_id: id, date: date)
     else
