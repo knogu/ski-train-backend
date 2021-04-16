@@ -97,8 +97,20 @@ namespace :scrape do
   end
 
   desc '土休日、東京から越後湯沢'
-  task :weekday_from_Tokyo => :environment do
+  task :holiday_from_Tokyo => :environment do
     train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
     seed_services(train_line_id = train_line_id, start_station_array = stations_in_Tokyo, reach_station_name = stations_nearby_ski_resort, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2104/timetable/tt1039/1039051.html')
+  end
+
+  desc '平日、越後湯沢から東京'
+  task :weekday_from_Echigoyuzawa => :environment do
+    train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
+    seed_services(train_line_id = train_line_id, start_station_array = stations_nearby_ski_resort, reach_station_name = stations_in_Tokyo, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2104/timetable/tt0285/0285030.html')
+  end
+
+  desc '休日、越後湯沢から東京'
+  task :holiday_from_Echigoyuzawa => :environment do
+    train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
+    seed_services(train_line_id = train_line_id, start_station_array = stations_nearby_ski_resort, reach_station_name = stations_in_Tokyo, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2104/timetable/tt0285/0285031.html')
   end
 end
