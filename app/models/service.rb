@@ -11,4 +11,12 @@ class Service < ApplicationRecord
       isWithLaggageSpace: is_with_laggage_space
     }
   end
+
+  def is_in_service(date)
+    if is_depending_on_date
+      ServiceDate.exists?(service_id: id, date: date)
+    else
+      (is_in_weekdays && date.on_weekday? && !HolidayJp.holiday?(date)) || (is_in_holidays && (date.on_weekend? || HolidayJp.holiday?(date)))
+    end
+  end
 end

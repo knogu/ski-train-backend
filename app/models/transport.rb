@@ -14,7 +14,7 @@ class Transport < ApplicationRecord
       "transferMinute": transfer_minute,
       "startStation": Station.find(start_station_id).name,
       "reachStation": Station.find(reach_station_id).name,
-      "services": services.map(&:json)
+      "services": services.select(&:is_in_service).map(&:json)
     }
   end
 end
