@@ -62,7 +62,7 @@ end
 
 def seed_services(train_line_id, start_station_array, reach_station_array, url_for_timetable_at_start_station)
   page = Mechanize.new.get(url_for_timetable_at_start_station)
-  (page.links_with(:class => 'time_link_red') + page.links_with(:class => 'time_link_red')).each do |link|
+  (page.links_with(:class => 'time_link_red') + page.links_with(:class => 'time_link_black')).each do |link|
     service_page = link.click
     laggage_space = has_laggage_space(service_page)
     dates = dates_service_is_on(service_page)
