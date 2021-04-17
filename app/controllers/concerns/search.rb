@@ -19,6 +19,7 @@ module Search
   end
 
   def get_back_json(start_station, ski_resort)
+    date = Date.today
     json = []
     first_transport = Transport.find_by(start_station_id: Station.find_by(name: ski_resort).id, reach_station_id: Station.find_by(name: '越後湯沢').id)
     json.push(first_transport.json(date))
