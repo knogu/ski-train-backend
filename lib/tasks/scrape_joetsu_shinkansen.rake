@@ -74,14 +74,13 @@ def seed_services(train_line_id, start_station_array, reach_station_array, url_f
       reach_station_data_array.each do |reach_station_data|
         reach_station_id = Station.find_or_create_by!(name: reach_station_data[:name]).id
         transport_id = Transport.find_or_create_by!(start_station_id: start_station_id, reach_station_id: reach_station_id, train_line_id: train_line_id).id
-        service = Service.create!(transport_id: transport_id, start_hour: start_station_data[:start_hour], start_minute: start_station_data[:start_minute], reach_hour: reach_station_data[:reach_hour], reach_minute: reach_station_data[:reach_minute], is_with_laggage_space: laggage_space, platform: start_station_data[:platform], is_depending_on_date: true)
+        service = Service.find_or_create_by!(transport_id: transport_id, start_hour: start_station_data[:start_hour], start_minute: start_station_data[:start_minute], reach_hour: reach_station_data[:reach_hour], reach_minute: reach_station_data[:reach_minute], is_with_laggage_space: laggage_space, platform: start_station_data[:platform], is_depending_on_date: true)
         p 'created service: ', service
         dates.each do |date|
-          service_date = ServiceDate.create!(service_id: service.id, date:date)
+          service_date = ServiceDate.find_or_create_by!(service_id: service.id, date:date)
           p 'created service_date: ', service_date
         end
       end
-      break
     end
     sleep 1.0
   end
