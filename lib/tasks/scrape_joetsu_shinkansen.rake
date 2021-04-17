@@ -87,7 +87,7 @@ def seed_services(train_line_id, start_station_array, reach_station_array, url_f
 end
 
 stations_in_Tokyo = ['東京']
-stations_nearby_ski_resort = ['越後湯沢', 'ガーラ湯沢']
+stations_nearby_ski_resort = ['越後湯沢']
 namespace :scrape_joetsu_shinkansen do
   desc '平日、東京から越後湯沢'
   task :weekday_from_Tokyo => :environment do
