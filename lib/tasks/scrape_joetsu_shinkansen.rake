@@ -62,6 +62,7 @@ end
 
 def seed_services(train_line_id, start_station_array, reach_station_array, url_for_timetable_at_start_station)
   page = Mechanize.new.get(url_for_timetable_at_start_station)
+  p 'service count:', (page.links_with(:class => 'time_link_red') + page.links_with(:class => 'time_link_black')).count
   (page.links_with(:class => 'time_link_red') + page.links_with(:class => 'time_link_black')).each do |link|
     service_page = link.click
     laggage_space = has_laggage_space(service_page)
@@ -76,9 +77,9 @@ def seed_services(train_line_id, start_station_array, reach_station_array, url_f
         transport_id = Transport.find_or_create_by!(start_station_id: start_station_id, reach_station_id: reach_station_id, train_line_id: train_line_id).id
         service = Service.find_or_create_by!(transport_id: transport_id, start_hour: start_station_data[:start_hour], start_minute: start_station_data[:start_minute], reach_hour: reach_station_data[:reach_hour], reach_minute: reach_station_data[:reach_minute], is_with_laggage_space: laggage_space, platform: start_station_data[:platform], is_depending_on_date: true)
         p 'created service: ', service
+        p 'service_date count:', dates.count
         dates.each do |date|
-          service_date = ServiceDate.find_or_create_by!(service_id: service.id, date:date)
-          p 'created service_date: ', service_date
+          ServiceDate.find_or_create_by!(service_id: service.id, date:date)
         end
       end
     end
