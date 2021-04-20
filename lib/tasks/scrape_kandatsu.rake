@@ -42,6 +42,6 @@ namespace :scrape_kandatsu do
     transport_to_echigoyuzawa_id = Transport.find_or_create_by!(start_station_id: kandatsu_station_id, reach_station_id: echigoyuzawa_station_id, train_line_id: train_line_id).id
 
     create_services_from_table(table_to_Kandatsu, transport_to_kandatsu_id)
-    create_services_from_table(table_to_Kandatsu, transport_to_echigoyuzawa_id)
+    create_services_from_table(table_from_Kandatsu, transport_to_echigoyuzawa_id)
   end
 end
