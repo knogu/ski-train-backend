@@ -1,24 +1,5 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Summary
+https://www.guidetoskiresort.com/
+- 浦安市在住の人が、東京駅までの直通バスを利用して越後湯沢周辺のスキー場に行く時に、東京駅までのバス・新幹線・越後湯沢からのバスの便を検索できます。
+  - このサイトで解決できること：東京駅までのバスと、越後湯沢からのバスについては、既存の乗り換えアプリでは出てこない（自分調べ）ので、それぞれのサイトで行きと帰りの両方の時刻表を調べる必要があり、面倒でした。
+  - フロントエンドのレポジトリ: https://github.com/knogu/ski-train-frontend
