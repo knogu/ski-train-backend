@@ -14,7 +14,7 @@ class Transport < ApplicationRecord
       "transferMinute": transfer_minute,
       "startStation": Station.find(start_station_id).name,
       "reachStation": Station.find(reach_station_id).name,
-      "services": services.select{ |service| service.is_in_service?(date) }.map(&:json)
+      "services": services.select{ |service| service.is_in_service?(date) }.sort{ |a, b| [a.start_hour, a.start_minute] <=>  [b.start_hour, b.start_minute]}.map(&:json)
     }
   end
 end
