@@ -1,6 +1,7 @@
 require 'open-uri'
 
-YEAR = 2021
+# TODO: ページから取得するように
+YEAR = 2022
 # pageには便の運行予定表のページのMecanizeオブジェクトを与える ex)https://www.jreast-timetable.jp/2104/train/050/053571.html
 def dates_service_is_on(page)
   dates = []
