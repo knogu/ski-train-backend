@@ -84,7 +84,7 @@ def seed_services(train_line_id, start_station_array, reach_station_array, url_f
         end
       end
     end
-    sleep 1.5
+    sleep 2.0
   end
 end
 
@@ -94,24 +94,24 @@ namespace :scrape_joetsu_shinkansen do
   desc '平日、東京から越後湯沢'
   task :weekday_from_Tokyo => :environment do
     train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
-    seed_services(train_line_id = train_line_id, start_station_array = stations_in_Tokyo, reach_station_name = stations_nearby_ski_resort, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2201/timetable/tt1039/1039050.html')
+    seed_services(train_line_id = train_line_id, start_station_array = stations_in_Tokyo, reach_station_name = stations_nearby_ski_resort, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2205/timetable/tt1039/1039050.html')
   end
 
   desc '土休日、東京から越後湯沢'
   task :holiday_from_Tokyo => :environment do
     train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
-    seed_services(train_line_id = train_line_id, start_station_array = stations_in_Tokyo, reach_station_name = stations_nearby_ski_resort, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2201/timetable/tt1039/1039051.html')
+    seed_services(train_line_id = train_line_id, start_station_array = stations_in_Tokyo, reach_station_name = stations_nearby_ski_resort, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2205/timetable/tt1039/1039051.html')
   end
 
   desc '平日、越後湯沢から東京'
   task :weekday_from_Echigoyuzawa => :environment do
     train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
-    seed_services(train_line_id = train_line_id, start_station_array = stations_nearby_ski_resort, reach_station_name = stations_in_Tokyo, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2201/timetable/tt0285/0285030.html')
+    seed_services(train_line_id = train_line_id, start_station_array = stations_nearby_ski_resort, reach_station_name = stations_in_Tokyo, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2205/timetable/tt0285/0285030.html')
   end
 
   desc '休日、越後湯沢から東京'
   task :holiday_from_Echigoyuzawa => :environment do
     train_line_id = TrainLine.find_or_create_by!(name: '上越新幹線').id
-    seed_services(train_line_id = train_line_id, start_station_array = stations_nearby_ski_resort, reach_station_name = stations_in_Tokyo, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2201/timetable/tt0285/0285031.html')
+    seed_services(train_line_id = train_line_id, start_station_array = stations_nearby_ski_resort, reach_station_name = stations_in_Tokyo, url_for_timetable_at_start_station =  'https://www.jreast-timetable.jp/2205/timetable/tt0285/0285031.html')
   end
 end
